@@ -6,7 +6,11 @@ if [ "$?" -ne "0" ]; then
     exit 1
 fi
 
-ar -x libgrt.a
-ar rvs libwgrt.a *.o
-rm *.o
-rm __.SYMDEF
+os=$(uname)
+if [ "$os" = "Darwin" ]; then
+    ar rvs libwgrt.a wgrt.o
+elif [ "$os" = "Linux" ]; then
+    ar rvs libwgrt.so wgrt.o
+fi
+
+rm wgrt.o
