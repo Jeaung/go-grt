@@ -1,7 +1,7 @@
 package main
 
 // #cgo CFLAGS: -I${SRCDIR}/../grt
-// #cgo LDFLAGS: -lstdc++ -L${SRCDIR}/../grt -lwgrt -L${SRCDIR}/../grt -lgrt
+// #cgo LDFLAGS: -lstdc++ -L${SRCDIR}/../grt -lwgrt -L/usr/local/ -lgrt
 /*
  #include "wgrt.h"
 */
