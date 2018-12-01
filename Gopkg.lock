@@ -18,6 +18,14 @@
   revision = "60ab7e3d12ed91bc1b2486559c4b3a6b62297577"
 
 [[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   digest = "1:52b21e6be25049834aea5ecdde35d723c00fbdad3ea0357f2072dfb105836e02"
   name = "github.com/tarm/serial"
@@ -46,6 +54,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/nsf/termbox-go",
+    "github.com/pkg/errors",
     "github.com/tarm/serial",
     "go.uber.org/atomic",
   ]
