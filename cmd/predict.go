@@ -1,7 +1,8 @@
 package main
 
 // #cgo CFLAGS: -I${SRCDIR}/../grt
-// #cgo LDFLAGS: -lstdc++ -L${SRCDIR}/../grt -lwgrt -L${SRCDIR}/../grt -lgrt
+// #cgo darwin LDFLAGS: -lstdc++ -L${SRCDIR}/../grt/darwin -lwgrt -L${SRCDIR}/../grt/darwin -lgrt
+// #cgo linux LDFLAGS: -lstdc++ -L${SRCDIR}/../grt/linux -lwgrt -L${SRCDIR}/../grt/linux -lgrt
 /*
  #include "wgrt.h"
 */
@@ -47,7 +48,9 @@ func main() {
 			if result != 0 {
 				label := int(result)
 				likelihood := (result - float32(label)) * 10
-				fmt.Println("label", label, "likelihood", likelihood)
+				if label != 0 {
+					fmt.Println("label", label, "likelihood", likelihood)
+				}
 			}
 		}
 	}

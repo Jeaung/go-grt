@@ -8,9 +8,9 @@ fi
 
 os=$(uname)
 if [ "$os" = "Darwin" ]; then
-    ar rvs libwgrt.a wgrt.o
+    ar rvs darwin/libwgrt.a wgrt.o
 elif [ "$os" = "Linux" ]; then
-    ar rvs libwgrt.so wgrt.o libgrt.so
+    ar rvs linux/libwgrt.so wgrt.o linux/libgrt.so
 fi
 
 rm wgrt.o

@@ -1,9 +1,6 @@
 package keyboard
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/nsf/termbox-go"
 	"go.uber.org/atomic"
 )
@@ -37,6 +34,7 @@ func (w *Watcher) Init() {
 			case termbox.EventKey:
 				switch ev.Key {
 				case termbox.KeyEsc:
+					println("pppppppesc")
 					w.exit <- true
 				case termbox.KeyF1:
 					w.label.Store(1)
@@ -64,13 +62,6 @@ func (w *Watcher) Init() {
 					w.label.Store(12)
 				case termbox.KeyEnter:
 					w.train <- true
-				}
-				if ev.Key == termbox.KeyEnter {
-					w.train <- true
-				} else if ev.Key == termbox.KeyEsc {
-					fmt.Println("program exits")
-					termbox.Close()
-					os.Exit(0)
 				}
 			case termbox.EventMouse:
 				switch ev.Key {

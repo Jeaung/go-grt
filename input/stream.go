@@ -4,11 +4,13 @@ import (
 	"strings"
 
 	"github.com/tarm/serial"
+	"go.uber.org/atomic"
 )
 
 type Reader struct {
-	s  *serial.Port
-	ch chan string
+	s    *serial.Port
+	ch   chan string
+	stop *atomic.Bool
 }
 
 func NewReader(name string) *Reader {
@@ -19,14 +21,20 @@ func NewReader(name string) *Reader {
 	}
 
 	return &Reader{
-		s:  s,
-		ch: make(chan string, 50),
+		s:    s,
+		ch:   make(chan string, 50),
+		stop: atomic.NewBool(false),
 	}
 }
 
 func (r *Reader) Start() {
 	var rest string
 	for {
+		if r.stop.Load() {
+			r.s.Close()
+			break
+		}
+
 		buf := make([]byte, 256)
 		n, err := r.s.Read(buf)
 		if err != nil {
@@ -56,5 +64,5 @@ func (r *Reader) Channel() <-chan string {
 }
 
 func (r *Reader) Stop() {
-	r.s.Close()
+	r.stop.Store(true)
 }
