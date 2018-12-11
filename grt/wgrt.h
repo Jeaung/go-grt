@@ -27,6 +27,8 @@ void train();
 
 float predict(Point*);
 
+void saveModel();
+
 #ifdef __cplusplus
 }
 #endif

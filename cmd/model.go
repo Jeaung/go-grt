@@ -1,13 +1,15 @@
 package main
 
 // #cgo CFLAGS: -I${SRCDIR}/../grt
-// #cgo LDFLAGS: -lstdc++ -L${SRCDIR}/../grt -lwgrt -L/usr/local/ -lgrt
+// #cgo darwin LDFLAGS: -lstdc++ -L${SRCDIR}/../grt/darwin -lwgrt -L${SRCDIR}/../grt/darwin -lgrt
+// #cgo linux LDFLAGS: -lstdc++ -L${SRCDIR}/../grt/linux -lwgrt -L${SRCDIR}/../grt/linux -lgrt
 /*
  #include "wgrt.h"
 */
 import "C"
 import (
 	"fmt"
+	"os"
 	"unsafe"
 
 	"github.com/Jeaung/go-grt/input"
@@ -31,7 +33,7 @@ func main() {
 	w := keyboard.NewWatcher()
 	w.Init()
 
-	r := input.NewReader("/dev/cu.usbmodem141401")
+	r := input.NewReader("/dev/cu.usbmodem143401")
 	go r.Start()
 
 	C.init(C.int(util.ModeModel))
@@ -41,6 +43,8 @@ func main() {
 		fmt.Println("program exits")
 		termbox.Close()
 		r.Stop()
+		C.saveModel()
+		os.Exit(0)
 	}()
 
 	fmt.Println(`program initialize

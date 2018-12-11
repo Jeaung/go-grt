@@ -24,7 +24,7 @@ func ParsePoint(line string) (*Point, error) {
 		return nil, errors.New("invalid coordinate number")
 	}
 
-	var p Point
+	p := new(Point)
 	val, err := strconv.ParseFloat(axes[0], 10)
 	if err != nil {
 		return nil, err
@@ -41,5 +41,5 @@ func ParsePoint(line string) (*Point, error) {
 	}
 	p.Z = float32(val)
 
-	return &p, nil
+	return p, nil
 }

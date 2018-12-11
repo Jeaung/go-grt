@@ -27,7 +27,7 @@ void init(int mode) {
         //Set the null rejection coefficient to 3, this controls the thresholds for the automatic null rejection
         //You can increase this value if you find that your real-time gestures are not being recognized
         //If you are getting too many false positives then you should decrease this value
-        dtw.setNullRejectionCoeff(0.1);
+        dtw.setNullRejectionCoeff(2);
 
         //Turn on the automatic data triming, this will remove any sections of none movement from the start and end of the training samples
         dtw.enableTrimTrainingData(true, 0.1, 90);
@@ -68,14 +68,17 @@ void addSample(unsigned int label, Point sample[], int pointNum) {
 }
 
 void train() {
+    trainingSet.saveDatasetToFile("trainingData");
     if(pipeline.train(trainingSet)){
     	printf("training %d samples successfully\n", trainingSet.getNumSamples());
     	trainingSet.printStats();
 	} else {
 	    printf("Failed to train classifier!\n");
 	}
+}
 
-	if(pipeline.save(MODEL_NAME)){
+void saveModel() {
+    if(pipeline.save(MODEL_NAME)){
 	    printf("classifier pipeline saved successfully!\n");
     } else {
         printf("Failed to save the classifier pipeline!\n");
